@@ -1,0 +1,13 @@
+{{layout: layouts/default.html}}
+
+	<main>
+
+		<a href="/account" class="btn account_btn">Mon Compte</a>
+		<a href="/timeline" class="btn newDiscussion_btn">Retour au fil d'actualité</a>
+
+		{{for: let message of this.parameters.messages}}
+
+		<p class="news_titles">{{message.getContent()}}</p>
+		{{endfor}}
+
+	</main>

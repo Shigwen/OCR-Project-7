@@ -1,0 +1,103 @@
+[
+    {
+        "name": "MyRouteName",
+        "regexp": "^/articles/([0-9]+)-([^/]+)/?",
+        "pretty": "/articles/$1-$2",
+        "controller": "Article",
+        "action": "default",
+        "variables": {
+            "id": "$1",
+            "prettyKey": "$2"
+        }
+	},
+    {
+        "name": "index",
+        "regexp": "^/?$",
+        "pretty": "/",
+        "controller": "Index",
+        "action": "index",
+        "variables": {}
+    },
+    {
+        "name": "signup",
+        "regexp": "^/signup$",
+        "pretty": "/signup",
+        "controller": "User",
+        "action": "signup",
+        "variables": {}
+    },
+    {
+        "name": "login",
+        "regexp": "^/login$",
+        "pretty": "/login",
+        "controller": "User",
+        "action": "login",
+        "variables": {}
+	},
+    {
+        "name": "logout",
+        "regexp": "^/logout$",
+        "pretty": "/logout",
+        "controller": "User",
+        "action": "logout",
+        "variables": {}
+	},
+	{
+        "name": "timeline",
+        "regexp": "^/timeline$",
+        "pretty": "/timeline",
+        "controller": "Timeline",
+        "action": "timeline",
+        "variables": {}
+	},
+	{
+		"name": "newDiscussion",
+		"regexp": "^/new-discussion$",
+		"pretty": "/new-discussion",
+		"controller": "Discussion",
+		"action": "new",
+		"variables": {}
+	},
+    {
+        "name": "postDiscussion",
+        "regexp": "^/post-discussion$",
+        "pretty": "/post-discussion",
+        "controller": "Discussion",
+        "action": "post",
+        "variables": {}
+	},
+    {
+        "name": "showDiscussion",
+        "regexp": "^/discussion/([0-9]+)$",
+        "pretty": "/discussion/$1",
+        "controller": "Discussion",
+        "action": "show",
+        "variables": {
+			"id": "$1"
+		}
+	},
+    {
+        "name": "postMessage",
+        "regexp": "^/post-message$",
+        "pretty": "/post-message",
+        "controller": "Message",
+        "action": "post",
+        "variables": {}
+	},
+    {
+        "name": "account",
+        "regexp": "^/account$",
+        "pretty": "/account",
+        "controller": "Account",
+        "action": "account",
+        "variables": {}
+	},
+	{
+		"name": "gghtghhtghtfghtftDiscussion",
+		"regexp": "^/discussions/([0-9]+)/([0-9a-z-]+)$",
+		"pretty": "/postMessage",
+		"controller": "fdfffMessage",
+		"action": "fesffepostMessage",
+		"variables": {}
+	}
+]

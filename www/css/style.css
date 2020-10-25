@@ -1,0 +1,257 @@
+
+/* Couleur principale du site */
+* {
+	--main_color : #0A1ABA;
+	--secondary_color : #F3D410;
+}
+
+
+/* Propriétés des body et main */
+
+body {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Roboto', sans-serif;
+	min-height: 100vh;
+	margin: 0;
+	padding: 0;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+	min-width: 390px;
+	max-width: 1190px;
+	margin: auto;
+	margin-bottom: 100px;
+	min-height: calc(100vh - 20px);
+	border: solid;
+	border-color: black;
+	border-width: 2px;
+	border-collapse: collapse;
+	padding: 20px;
+}
+
+/* News feed */
+
+.news_titles, .article_first_message {
+	background-color:#FAFAFA;
+	padding:10px;
+	border-radius: 1px;
+	border-color: black;
+	width: calc(100% - 50px);
+	font-size: 2rem;
+	margin: 10px 0;
+}
+
+/* Formulaires */
+
+form {
+	background-color:#FAFAFA;
+	padding:10px;
+	width:380px;
+}
+
+form .btn {
+	margin: 20px auto;
+}
+
+fieldset {
+	padding:0 20px 20px 20px;
+	margin-bottom:10px;
+	border:1px solid #DF3F3F;
+}
+
+legend {
+	color:#DF3F3F;
+	font-weight:bold
+}
+
+label {
+	margin-top:10px;
+	display:block;
+	font-size: 2rem;
+}
+
+label.inline {
+	display:inline;
+	margin-right:50px;
+}
+
+input, textarea {
+	margin: 5px auto;
+	text-align: left;
+}
+
+input, textarea, select, option {
+	background-color:#FFF3F3;
+}
+
+input, textarea, select {
+	padding: 5px 10px;
+	border:1px solid #F5C5C5;
+	border-radius:5px;
+	width: 300px;
+	box-shadow:1px 1px 2px #C0C0C0 inset;
+}
+
+textarea {
+	padding: 10px;
+}
+
+form.new_article {
+	width: calc(100% - 10px);
+}
+
+form.new_article input {
+	width: calc(100% - 60px);
+	height: 4.5rem;
+}
+
+form.new_article textarea {
+	width: calc(100% - 60px);
+	height: 50rem;
+}
+
+/* Header */
+
+header {
+	width: 100%;
+	background-color: var(--main_color);
+}
+
+.banner {
+	display: flex;
+	width: 500px;
+	height: 150px;
+	margin: auto;
+	background-color: var(--main_color);
+}
+
+.banner h1 {
+	font-size: 3rem;
+	color: #F3D410;
+	margin: auto;
+}
+
+
+/* Font sizes */
+
+
+main h1 {
+	font-size: 3rem;
+	margin: 20px 0;
+	padding: 20px;
+	text-decoration: underline var(--main_color);
+}
+
+main h2 {
+	font-size: 2.5rem;
+	margin: 20px auto;
+	padding: 20px;
+	text-decoration: underline var(--main_color);
+}
+
+/* boutons et animations */
+
+.btn {
+	margin: 0 auto;
+	text-align: center;
+	font-size: 2rem;
+	transform: scale(1);
+	transition-property: transform;
+	transition-duration: 400ms;
+	padding: 20px;
+	color: var(--secondary_color);
+	background-color: #0A1ABA;
+}
+
+main .account_btn {
+	margin: 0 0 0 auto;
+}
+
+.btn:hover{
+	transform: scale(1.15);
+}
+
+.menu {
+	cursor: pointer;
+	opacity: 1;
+	transition-property: opacity;
+	transition-duration: 400ms;
+}	
+
+
+/* Voici le code utilisé par le site Animate.css pour obtenir l'effet de wiggle demandé. Il est ici appelé shakeX. 
+/* ShakeX (site : https://animate.style/) */
+
+@keyframes shakeX {
+	from,
+	to {
+		transform: translate3d(0, 0, 0);
+	}
+
+	10%,
+	30%,
+	50%,
+	70%,
+	90% {
+		transform: translate3d(-10px, 0, 0);
+	}
+
+	20%,
+	40%,
+	60%,
+	80% {
+		transform: translate3d(10px, 0, 0);
+	}
+}
+
+.animate__shakeX:hover {
+	animation-name: shakeX;
+	animation-duration: 1s;
+}
+
+
+/* Footer */
+
+footer {
+	background-color: var(--main_color);;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
+.footer_container {
+	display: flex;
+	width: 100%;
+    max-width: 1190px;
+	height: 100px;
+	margin: auto;
+	justify-content: space-between;
+	background-color: var(--main_color);;
+}
+
+.liens_utiles {
+	font-size: 2rem;
+	color: #F3D410;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 32px;
+}
+
+/*     RESPONSIVE     */
+
+@media (max-width: 1000px) {
+
+	.liste_menus {
+		width: 100%;
+		max-width: 1000px;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+

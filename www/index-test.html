@@ -1,0 +1,27 @@
+{{layout: layouts/default.html}}
+{{include: partials/title.html}}
+<ul>
+    
+    {{for: let i = 0; i < 10; ++i}}
+
+        {{for: let j = 0; j < 5; ++j}}
+
+            {{if: i % 2 === 0}}
+
+                <li>Even number {{i}}</li>
+
+            {{else if: i % 3 === 0}}
+
+                <li>Can be divided by 3 : {{i}}</li>
+
+            {{else}}
+
+                <li>Other {{i}}</li>
+
+            {{endif}}
+
+        {{endfor}}
+
+    {{endfor}}
+
+</ul>
