@@ -77,12 +77,24 @@
 		}
 	},
     {
+        "name": "newMessage",
+        "regexp": "^/new-message/([0-9]+)$",
+        "pretty": "/new-message/$1",
+        "controller": "Message",
+        "action": "new",
+        "variables": {
+			"id": "$1"
+		}
+	},
+    {
         "name": "postMessage",
-        "regexp": "^/post-message$",
-        "pretty": "/post-message",
+        "regexp": "^/post-message/([0-9]+)$",
+        "pretty": "/post-message/$1",
         "controller": "Message",
         "action": "post",
-        "variables": {}
+        "variables": {
+			"id": "$1"
+		}
 	},
     {
         "name": "account",

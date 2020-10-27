@@ -1,11 +1,10 @@
 import { createGzip } from "zlib";
-import { Hash, randomBytes } from "crypto";
 
 import { Controller } from "../Model/Controller.js";
 import { Templating } from "../Model/Templating.js";
 import { Session as SessionService } from "../Service/Session.js";
 import { Authentication as AuthenticationService } from "../Service/Authentication.js";
-import { User } from "../DataModel/User.js";
+
 import { Discussion } from "../DataModel/Discussion.js";
 import { Message } from "../DataModel/Message.js";
 
@@ -22,12 +21,15 @@ class DiscussionController extends Controller
 		{
 			const SESSION = SessionService.getSession(request, response);
 			const IS_LOGGED = AuthenticationService.checkUser(SESSION, response);
+
 			if (!IS_LOGGED)
 			{
 				return;
 			}
+
 			const TEMPLATING = new Templating();
 			let content = await TEMPLATING.render(`new_discussion.html`);
+
 			response.setHeader("Content-Type", "text/html");
 			response.setHeader("Content-Encoding", "gzip");
 			const encoder = createGzip();
@@ -70,7 +72,10 @@ class DiscussionController extends Controller
 				return;
 			}
 
+			const TITLE = await DISCUSSION.getTitle();
 			const MESSAGES = await DISCUSSION.getMessages();
+
+			// On peut déterminer ici l'ordre dans lequel les messages seront affichés, le premier message étant toujours en haut
 			/*
 			const MESSAGES = await DISCUSSION.getMessages(
 				(a, b) =>
@@ -88,10 +93,8 @@ class DiscussionController extends Controller
 			);
 			*/
 
-			console.log("MessageController 75", MESSAGES);
-
 			const TEMPLATING = new Templating();
-			let content = await TEMPLATING.render(`discussion.html`, {messages: MESSAGES});
+			let content = await TEMPLATING.render(`discussion.html`, {messages: MESSAGES, title: TITLE, id: GET.id});
 
 			response.setHeader("Content-Type", "text/html");
 			response.setHeader("Content-Encoding", "gzip");

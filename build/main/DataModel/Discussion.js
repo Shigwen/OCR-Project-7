@@ -1,20 +1,36 @@
 import { DatabaseService } from "../Service/Database.js";
 import { Message } from "./Message.js";
+import { User } from "./User.js";
+import { WeakRefMap } from "../Service/WeakRefMap.js";
+
+const CACHE = new WeakRefMap();
 
 // DAO
 class Discussion
 {
 	static createFromData(data)
 	{
-		const DISCUSSION = new this();
+		if (!data.id)
+		{
+			throw new Error("Invalid data");
+		}
 
-		DISCUSSION.id = data.id;
-		DISCUSSION.creationDate = data.creation_date;
-		DISCUSSION.userId = data.user_id;
-		DISCUSSION.firstMessageId = data.first_message_id;
-		DISCUSSION.title = data.title;
+		let discussion = CACHE.get(data.id);
 
-		return DISCUSSION;
+		if (!discussion)
+		{
+			discussion = new this();
+
+			discussion.id = data.id;
+			discussion.creationDate = data.creation_date;
+			discussion.userId = data.user_id;
+			discussion.firstMessageId = data.first_message_id;
+			discussion.title = data.title;
+
+			//potential upgrade here
+		}
+
+		return discussion;
 	}
 
 	static async getById(id)
@@ -106,6 +122,22 @@ class Discussion
 		this.userId = userId;
 	}
 
+	async getUser()
+	{
+		const USER = await User.getById(this.userId);
+		return USER;
+	}
+
+	setUser(user)
+	{
+		if (!user.id)
+		{
+			throw new Error("User is not saved");
+		}
+
+		this.userId = user.id;
+	}
+
 	getFirstMessageId()
 	{
 		return this.firstMessageId;
@@ -114,6 +146,22 @@ class Discussion
 	setFirstMessageId(firstMessageId)
 	{
 		this.firstMessageId = firstMessageId;
+	}
+
+	async getFirstMessage()
+	{
+		const MESSAGE = await Message.getById(this.firstMessageId);
+		return MESSAGE;
+	}
+
+	setFirstMessage(message)
+	{
+		if (!message.id)
+		{
+			throw new Error("Message is not saved");
+		}
+
+		this.firstMessageId = message.id;
 	}
 
 	getTitle()
@@ -166,14 +214,16 @@ class Discussion
 		return MESSAGES;
 	}
 
-	static async getAllDiscussions()
+	static async getAll()
 	{
 		const RESULTS = await DatabaseService.query(
 			`
 				SELECT
-					id, title
+					*
 				FROM
 					discussions
+				ORDER BY
+					id DESC
 				LIMIT
 					50
 			`
@@ -183,12 +233,14 @@ class Discussion
 		{
 			return null;
 		}
+
 		const DISCUSSIONS = RESULTS.map(
 			(discussion) =>
 			{
 				return this.createFromData(discussion);
 			}
 		);
+
 		return DISCUSSIONS;
 	}
 }

@@ -1,4 +1,4 @@
-import { View as AbstractView } from "/Development/OCR-Projet-7/project-seven/build/main/Model/View.js";
+import { View as AbstractView } from "/Development/OCR-Projet-7/OCR-Project-7/build/main/Model/View.js";
 class View extends AbstractView
 {
     constructor(parameters)
@@ -69,7 +69,6 @@ class View extends AbstractView
 	</form>
 
 </main>
-
 `;
         return this.content;
     }

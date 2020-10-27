@@ -30,6 +30,8 @@ class Templating {
             }
             template = template.replace(/{{layout: *([^}]+)}}/, "");
             template = template.replace(/{{include: *([^}]+)}}/g, "`;\r\nawait this.include('$1');\r\nthis.content += `");
+            template = template.replace(/{{const: *([^}]+)}}/g, "`;\r\nconst $1;\r\nthis.content += `");
+            template = template.replace(/{{let: *([^}]+)}}/g, "`;\r\nlet $1;\r\nthis.content += `");
             template = template.replace(/{{for: *([^}]+)}}/g, "`;\r\nfor ($1)\r\n{\r\nthis.content += `");
             template = template.replace(/{{endfor}}/g, "`;\r\n}\r\nthis.content += `");
             template = template.replace(/{{if: *([^}]+)}}/g, "`;\r\nif ($1)\r\n{\r\nthis.content += `");

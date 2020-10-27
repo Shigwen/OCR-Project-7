@@ -16,6 +16,42 @@ class MessageController extends Controller
 		super();
 	}
 
+
+	async newAction(request, response)
+	{
+		try
+		{
+			const SESSION = SessionService.getSession(request, response);
+			const IS_LOGGED = AuthenticationService.checkUser(SESSION, response);
+			if (!IS_LOGGED)
+			{
+				return;
+			}
+			const TEMPLATING = new Templating();
+
+			const GET = request.getQuery();
+
+			let content = await TEMPLATING.render(`new_message.html`, {id: GET.id});
+
+			response.setHeader("Content-Type", "text/html");
+			response.setHeader("Content-Encoding", "gzip");
+			const encoder = createGzip();
+			encoder.pipe(response);
+			encoder.write(content);
+			encoder.end();
+		}
+		catch (error)
+		{
+			console.log(error);
+			response.statusCode = 303;
+			response.setHeader("Location", "/");
+			response.setHeader("Content-Encoding", "gzip");
+			const encoder = createGzip();
+			encoder.pipe(response);
+			encoder.end();
+		}
+	}
+
 	async postAction(request, response)
 	{
 		try
@@ -24,25 +60,17 @@ class MessageController extends Controller
 
 			const POST = request.getRequest();
 			const USER_ID = SESSION.get("userId");
-
-			const NEW_DISCUSSION = new Discussion();
-
-			NEW_DISCUSSION.setUserId(USER_ID);
-			NEW_DISCUSSION.setFirstMessageId(null);
-			NEW_DISCUSSION.setTitle(POST.title);
-			await NEW_DISCUSSION.save();
+			const GET = request.getQuery();
 
 			const NEW_MESSAGE = new Message();
 
 			NEW_MESSAGE.setUserId(USER_ID);
-			NEW_MESSAGE.setDiscussionId(NEW_DISCUSSION.getId());
+			NEW_MESSAGE.setDiscussionId(GET.id);
 			NEW_MESSAGE.setContent(POST.content);
 			NEW_MESSAGE.save();
-			NEW_DISCUSSION.setFirstMessageId(NEW_MESSAGE.getId);
-			NEW_DISCUSSION.save();
 
 			response.statusCode = 303;
-			response.setHeader("Location", "/timeline");
+			response.setHeader("Location", `/discussion/${GET.id}`);
 			response.setHeader("Content-Encoding", "gzip");
 			const encoder = createGzip();
 			encoder.pipe(response);

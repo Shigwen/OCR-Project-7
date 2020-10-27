@@ -3,7 +3,26 @@
 
 	<main>
 
-		<h1>Mon Compte</h1>
-display account information
+		<menu-bloc>
+			<a href="/timeline" class="btn">Retour au fil d'actualité</a>
+			<a href="/new-discussion" class="btn left_btn">Nouvelle discussion</a>
+		</menu-bloc>
+
+		<h1>{{this.parameters.title}}</h1>
+
+	<ul class="account_info">
+		<li>
+			Nom : {{this.parameters.user.lastname}}
+		</li>
+		<li>
+			Prénom : {{this.parameters.user.firstname}}
+		</li>
+		<li>
+			Poste : {{this.parameters.user.job}}
+		</li>
+		<li>
+			Pour changez les informations liées à votre compte, veuillez contacter un administrateur. Merci de votre compréhension.
+		</li>
+	</ul>
 
 	</main>

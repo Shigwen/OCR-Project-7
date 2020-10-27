@@ -2,12 +2,26 @@
 
 	<main>
 
-		<a href="/account" class="btn account_btn">Mon Compte</a>
-		<a href="/timeline" class="btn newDiscussion_btn">Retour au fil d'actualité</a>
+		<menu-bloc>
+			<a href="/account" class="btn">Mon Compte</a>
+			<a href="/new-message/{{this.parameters.id}}" class="btn">Poster une réponse</a>
+			<a href="/timeline" class="btn">Retour au fil d'actualité</a>
+		</menu-bloc>
 
-		{{for: let message of this.parameters.messages}}
 
-		<p class="news_titles">{{message.getContent()}}</p>
-		{{endfor}}
+		<h1>{{this.parameters.title}}</h1>
+
+		<ul>
+			{{for: let message of this.parameters.messages}}
+
+			<li>
+				<p class="message_content">{{message.getContent()}}</p>
+
+				{{const: USER = await message.getUser()}}
+				<p>Posté par {{USER.getFirstname()}} {{USER.getLastname()}}, {{USER.getJob()}}</p>
+			</li>
+
+			{{endfor}}
+		</ul>
 
 	</main>

@@ -5,6 +5,7 @@ import { Templating } from "../Model/Templating.js";
 import { Session as SessionService } from "../Service/Session.js";
 
 import { Discussion } from "../DataModel/Discussion.js";
+import { User } from "../DataModel/User.js";
 
 class TimelineController extends Controller
 {
@@ -17,7 +18,8 @@ class TimelineController extends Controller
 	{
 		SessionService.getSession(request, response);
 		const TEMPLATING = new Templating();
-		const DISCUSSIONS = await Discussion.getAllDiscussions();
+
+		const DISCUSSIONS = await Discussion.getAll();
 
 		let content = await TEMPLATING.render(`timeline.html`, {discussions: DISCUSSIONS});
 

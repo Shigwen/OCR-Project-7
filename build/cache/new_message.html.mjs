@@ -11,16 +11,16 @@ class View extends AbstractView
         this.content = `
 
 <main>
-	<form method="POST" action="/post-discussion" name="postDiscussion">
+
+	<form method="POST" action="/post-message/${this.parameters.id}" name="postMessage">
+
 		<label>
-			<h1>Choisissez un titre (maximum 90 caractères)</h1>
-			<input type="text" name="title" required maxlength="90" />
-		</label>
-		<label>
-			<h1>Rédigez votre article (maximum 2000 caractères)</h1>
+			<h1>Rédigez votre réponse (maximum 2000 caractères)</h1>
 			<textarea name="content" required maxlength="2000" spellcheck="true"></textarea>
 		</label>
+
 		<button type="submit" class="btn"> Postez votre message </button>
+
 	</form>
 </main>
 `;

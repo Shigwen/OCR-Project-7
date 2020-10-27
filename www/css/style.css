@@ -33,18 +33,52 @@ main {
 	border-width: 2px;
 	border-collapse: collapse;
 	padding: 20px;
+	/* background-image */
+	background-image: url("../images/icon.png");
+	background-size: auto;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
-/* News feed */
+/* Font sizes */
 
-.news_titles, .article_first_message {
+
+main h1 {
+	font-size: 3rem;
+	margin: 20px 0;
+	padding: 20px;
+	text-decoration: underline var(--main_color);
 	background-color:#FAFAFA;
 	padding:10px;
-	border-radius: 1px;
-	border-color: black;
+}
+
+main h2 {
+	font-size: 2.5rem;
+	margin: 20px auto;
+	padding: 20px;
+	text-decoration: underline var(--main_color);
+	background-color:#FAFAFA;
+	padding:10px;
+}
+
+
+/* Timeline and Discussions */
+
+.news_titles, .message_content, .account_info {
+	background-color:#FAFAFA;
+	padding: 10px;
 	width: calc(100% - 50px);
 	font-size: 2rem;
-	margin: 10px 0;
+}
+
+li {
+	display: flex;
+	flex-direction: column;
+	margin: 30px 40px;
+	text-align: left;
+}
+li p {
+	margin-top: 5px;
 }
 
 /* Formulaires */
@@ -138,24 +172,15 @@ header {
 }
 
 
-/* Font sizes */
-
-
-main h1 {
-	font-size: 3rem;
-	margin: 20px 0;
-	padding: 20px;
-	text-decoration: underline var(--main_color);
-}
-
-main h2 {
-	font-size: 2.5rem;
-	margin: 20px auto;
-	padding: 20px;
-	text-decoration: underline var(--main_color);
-}
-
 /* boutons et animations */
+
+menu-bloc {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	width: 100%;
+}
 
 .btn {
 	margin: 0 auto;
@@ -169,23 +194,19 @@ main h2 {
 	background-color: #0A1ABA;
 }
 
-main .account_btn {
-	margin: 0 0 0 auto;
-}
-
 .btn:hover{
 	transform: scale(1.15);
 }
 
-.menu {
+/* .menu {
 	cursor: pointer;
 	opacity: 1;
 	transition-property: opacity;
 	transition-duration: 400ms;
-}	
+} */
 
 
-/* Voici le code utilisé par le site Animate.css pour obtenir l'effet de wiggle demandé. Il est ici appelé shakeX. 
+/* Voici le code utilisé par le site Animate.css pour obtenir l'effet de wiggle demandé. Il est ici appelé shakeX.
 /* ShakeX (site : https://animate.style/) */
 
 @keyframes shakeX {
@@ -254,4 +275,3 @@ footer {
 		align-items: center;
 	}
 }
-

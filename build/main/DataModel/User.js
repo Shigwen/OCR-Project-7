@@ -43,6 +43,33 @@ class User
 		*/
 	}
 
+
+	static async getAll()
+	{
+		const RESULTS = await DatabaseService.query(
+			`
+				SELECT
+					*
+				FROM
+					users
+			`
+		);
+
+		if (!RESULTS.length)
+		{
+			return [];
+		}
+
+		const USERS = RESULTS.map(
+			(user) =>
+			{
+				return this.createFromData(user);
+			}
+		);
+
+		return USERS;
+	}
+
 	static async getById(id)
 	{
 		const RESULTS = await DatabaseService.query(

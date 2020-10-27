@@ -1,20 +1,34 @@
 import { DatabaseService } from "../Service/Database.js";
 import { Discussion } from "./Discussion.js";
+import { User } from "./User.js";
+import { WeakRefMap } from "../Service/WeakRefMap.js";
+
+const CACHE = new WeakRefMap();
 
 // DAO
 class Message
 {
 	static createFromData(data)
 	{
-		const MESSAGE = new this();
+		if (!data.id)
+		{
+			throw new Error("Invalid data");
+		}
 
-		MESSAGE.id = data.id;
-		MESSAGE.creationDate = data.creation_date;
-		MESSAGE.userId = data.user_id;
-		MESSAGE.discussionId = data.discussion_id;
-		MESSAGE.content = data.content;
+		let message = CACHE.get(data.id);
 
-		return MESSAGE;
+		if (!message)
+		{
+			message = new this();
+
+			message.id = data.id;
+			message.creationDate = data.creation_date;
+			message.userId = data.user_id;
+			message.discussionId = data.discussion_id;
+			message.content = data.content;
+		}
+
+		return message;
 	}
 
 	static async getById(id)
@@ -112,6 +126,22 @@ class Message
 		this.userId = userId;
 	}
 
+	async getUser()
+	{
+		const USER = await User.getById(this.userId);
+		return USER;
+	}
+
+	setUser(user)
+	{
+		if (!user.id)
+		{
+			throw new Error("User is not saved");
+		}
+
+		this.userId = user.id;
+	}
+
 	getDiscussionId()
 	{
 		return this.discussionId;
@@ -120,6 +150,22 @@ class Message
 	setDiscussionId(discussionId)
 	{
 		this.discussionId = discussionId;
+	}
+
+	async getDiscussion()
+	{
+		const DISCUSSION = await Discussion.getById(this.discussionId);
+		return DISCUSSION;
+	}
+
+	setDiscussion(discussion)
+	{
+		if (!discussion.id)
+		{
+			throw new Error("Discussion is not saved");
+		}
+
+		this.discussionId = discussion.id;
 	}
 
 	getContent()
