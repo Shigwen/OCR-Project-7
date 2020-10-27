@@ -8,6 +8,10 @@
 
 /* Propriétés des body et main */
 
+*:focus {
+	outline: 4px dashed black;
+}
+
 body {
 	display: flex;
 	flex-direction: column;

@@ -19,6 +19,7 @@ class TimelineController extends Controller
 		SessionService.getSession(request, response);
 		const TEMPLATING = new Templating();
 
+		// Limité à 50 (DiscussionController l.227)
 		const DISCUSSIONS = await Discussion.getAll();
 
 		let content = await TEMPLATING.render(`timeline.html`, {discussions: DISCUSSIONS});
